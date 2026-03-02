@@ -1,0 +1,24 @@
+{
+  "name": "@omnia/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@omnia/db": "workspace:*",
+    "@omnia/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@omnia/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
