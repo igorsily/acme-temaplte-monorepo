@@ -1,5 +1,5 @@
 {
-  "extends": "@omnia/config/tsconfig.base.json",
+  "extends": "@acme/config/tsconfig.base.json",
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,

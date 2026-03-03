@@ -1,5 +1,24 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "overrides": [
+    {
+      "includes": [
+        "packages/ai/**",
+        "packages/core/**",
+        "packages/db/**",
+        "packages/auth/**",
+        "packages/types/**"
+      ],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noNamespaceImport": "off",
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ],
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -51,7 +70,11 @@
           "level": "warn",
           "fix": "safe",
           "options": {
-            "functions": ["clsx", "cva", "cn"]
+            "functions": [
+              "clsx",
+              "cva",
+              "cn"
+            ]
           }
         }
       },
@@ -79,5 +102,8 @@
       "tailwindDirectives": true
     }
   },
-  "extends": ["ultracite/biome/core", "ultracite/biome/react"]
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react"
+  ]
 }

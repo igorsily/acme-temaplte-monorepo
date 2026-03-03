@@ -1,17 +1,17 @@
-name: omnia
+name: acme
 
 services:
   postgres:
-    image: postgres
-    container_name: omnia-postgres
+    image: pgvector/pgvector:pg18-trixie
+    container_name: acme-postgres
     environment:
-      POSTGRES_DB: omnia
+      POSTGRES_DB: acme
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
-      - omnia_postgres_data:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -19,5 +19,20 @@ services:
       retries: 5
     restart: unless-stopped
 
+  redis:
+    image: redis:alpine
+    container_name: acme-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
-  omnia_postgres_data:
+  postgres_data:
+  redis_data:

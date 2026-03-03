@@ -1,61 +1,38 @@
 import type { QueryClient } from "@tanstack/react-query";
-
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-
-import type { trpc } from "@/utils/trpc";
-
-import Header from "@/components/header";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import type { trpc } from "@/lib/trpc";
 
 import "../index.css";
 
+import type { authClient } from "@/lib/auth-client";
+
 export interface RouterAppContext {
-  trpc: typeof trpc;
-  queryClient: QueryClient;
+	auth: typeof authClient.$Infer.Session | null;
+	queryClient: QueryClient;
+	trpc: typeof trpc;
 }
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
-  component: RootComponent,
-  head: () => ({
-    meta: [
-      {
-        title: "omnia",
-      },
-      {
-        name: "description",
-        content: "omnia is a web application",
-      },
-    ],
-    links: [
-      {
-        rel: "icon",
-        href: "/favicon.ico",
-      },
-    ],
-  }),
+	component: RootComponent,
+	head: () => ({
+		meta: [
+			{
+				title: "Acme Inc.",
+			},
+			{
+				name: "description",
+				content: "Acme Inc. ",
+			},
+		],
+		links: [
+			{
+				rel: "icon",
+				href: "/favicon.ico",
+			},
+		],
+	}),
 });
 
 function RootComponent() {
-  return (
-    <>
-      <HeadContent />
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        disableTransitionOnChange
-        storageKey="vite-ui-theme"
-      >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
-          <Header />
-          <Outlet />
-        </div>
-        <Toaster richColors />
-      </ThemeProvider>
-      <TanStackRouterDevtools position="bottom-left" />
-      <ReactQueryDevtools position="bottom" buttonPosition="bottom-right" />
-    </>
-  );
+	return <Outlet />;
 }

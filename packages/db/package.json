@@ -1,5 +1,5 @@
 {
-  "name": "@omnia/db",
+  "name": "@acme/db",
   "type": "module",
   "exports": {
     ".": {
@@ -14,20 +14,24 @@
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "db:migrate": "drizzle-kit migrate",
+    "db:custom": "drizzle-kit generate --custom",
     "db:start": "docker compose up -d",
     "db:watch": "docker compose up",
     "db:stop": "docker compose stop",
     "db:down": "docker compose down"
   },
   "dependencies": {
-    "@omnia/env": "workspace:*",
+    "@acme/env": "workspace:*",
+    "@acme/types": "workspace:*",
+    "@acme/core": "workspace:*",
     "dotenv": "catalog:",
     "drizzle-orm": "^0.45.1",
     "pg": "^8.17.1",
+    "postgres": "^3.4.8",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@omnia/config": "workspace:*",
+    "@acme/config": "workspace:*",
     "@types/pg": "^8.16.0",
     "drizzle-kit": "^0.31.8",
     "typescript": "catalog:"

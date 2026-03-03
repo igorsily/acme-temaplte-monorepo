@@ -1,13 +1,22 @@
+import { auth } from "@acme/auth";
+import type { Services } from "@acme/core";
 import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
-
-import { auth } from "@omnia/auth";
 import { fromNodeHeaders } from "better-auth/node";
 
-export async function createContext({ req, res }: CreateFastifyContextOptions) {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers),
-  });
-  return { session };
+export interface Context {
+	services: Services;
+	session: Awaited<ReturnType<typeof auth.api.getSession>>;
 }
 
-export type Context = Awaited<ReturnType<typeof createContext>>;
+export async function createContext(
+	opts: CreateFastifyContextOptions,
+	services: Services
+): Promise<Context> {
+	const { req } = opts;
+
+	const session = await auth.api.getSession({
+		headers: fromNodeHeaders(req.headers),
+	});
+
+	return { session, services };
+}

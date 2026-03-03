@@ -1,0 +1,25 @@
+# ── Node modules ──────────────────────────────
+node_modules
+**/node_modules
+
+# ── Build outputs ─────────────────────────────
+**/dist
+apps/web
+
+# ── Ambiente e segredos ───────────────────────
+**/.env
+**/.env.*
+
+# ── Git ───────────────────────────────────────
+.git
+.gitignore
+
+# ── Cache / CI ────────────────────────────────
+.turbo
+**/.turbo
+.github
+
+# ── Configs de dev ────────────────────────────
+**/*.md
+lefthook.yml
+biome.json
