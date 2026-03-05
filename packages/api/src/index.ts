@@ -30,7 +30,7 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 		ctx: {
 			...ctx,
 			session: ctx.session,
-			userId: ctx.session.user.id,
+			userId: Number(ctx.session.user.id),
 		},
 	});
 });

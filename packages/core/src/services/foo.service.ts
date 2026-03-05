@@ -1,9 +1,6 @@
-import type { ListParams } from "@acme/types/schemas/common.schema";
-import type {
-	CreateFooInput,
-	Foo,
-} from "@acme/types/schemas/foo.schema";
-import type { FooRepository } from "@/repositories/foo.repository";
+import type { ListParams } from "@omnia/types/schemas/common.schema";
+import type { CreateFooInput, Foo } from "@omnia/types/schemas/foo.schema";
+import type { FooRepository } from "../repositories/foo.repository";
 
 export class FooService {
 	private readonly fooRepository: FooRepository;

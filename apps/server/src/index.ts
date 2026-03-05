@@ -1,9 +1,15 @@
-import { env } from "@acme/env/server";
+import { env } from "@omnia/env/server";
 import { buildApp } from "./app";
+import { createDocumentIngestionWorker } from "./jobs/document-ingestion.worker";
 
 const startServer = async () => {
 	try {
 		const app = await buildApp();
+		const worker = createDocumentIngestionWorker();
+
+		app.addHook("onClose", async () => {
+			await worker.close();
+		});
 
 		await app.listen({
 			port: env.PORT,

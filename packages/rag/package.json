@@ -12,13 +12,13 @@
   "dependencies": {
     "@omnia/db": "workspace:*",
     "@omnia/env": "workspace:*",
+    "drizzle-orm": "^0.45.1",
     "mammoth": "^1.8.0",
     "openai": "^4.0.0",
     "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
     "@omnia/config": "workspace:*",
-    "@types/mammoth": "^1.5.1",
     "@types/node": "catalog:",
     "@types/pdf-parse": "^1.1.4",
     "typescript": "catalog:"

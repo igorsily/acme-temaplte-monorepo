@@ -7,21 +7,21 @@
 
 ## Resumo
 - Total de tasks: 30 (T1.1–T1.8, T2.1–T2.8, T3.1–T3.8, T4.1–T4.7, T5.1–T5.6, T6.1–T6.6)
-- Completas: 0
+- Completas: 8 (Sprint 3)
 - Em andamento: 0
-- Pendentes: 30
+- Pendentes: 22
 
 ## Sprint 1 — Fundação: DB, Env, pgvector
 | ID | Task | Status | Commit | Notas |
 |----|------|--------|--------|-------|
-| T1.1 | Habilitar pgvector no PostgreSQL | ⏳ | — | — |
-| T1.2 | Schema: documents + document_versions | ⏳ | — | — |
-| T1.3 | Schema: document_chunks + document_embeddings | ⏳ | — | — |
-| T1.4 | Schema: schema_embeddings | ⏳ | — | — |
-| T1.5 | Schema: conversations + conversation_messages | ⏳ | — | — |
-| T1.6 | Atualizar barrel packages/db/src/schema/index.ts | ⏳ | — | — |
-| T1.7 | Env vars: OPENAI_API_KEY + RAG_UPLOAD_DIR | ⏳ | — | — |
-| T1.8 | Migration Drizzle | ⏳ | — | — |
+| T1.1 | Habilitar pgvector no PostgreSQL | ⏳ | — | Feito manualmente na infra |
+| T1.2 | Schema: documents + document_versions | ✅ | 716f844 | — |
+| T1.3 | Schema: document_chunks + document_embeddings | ✅ | 716f844 | — |
+| T1.4 | Schema: schema_embeddings | ✅ | 716f844 | — |
+| T1.5 | Schema: conversations + conversation_messages | ✅ | 716f844 | — |
+| T1.6 | Atualizar barrel packages/db/src/schema/index.ts | ✅ | 716f844 | — |
+| T1.7 | Env vars: OPENAI_API_KEY + RAG_UPLOAD_DIR | ✅ | 716f844 | — |
+| T1.8 | Migration Drizzle | ⏳ | — | Rodar manualmente: bun run db:generate && bun run db:migrate |
 
 ## Sprint 2 — packages/rag: Core RAG
 | ID | Task | Status | Commit | Notas |
@@ -38,14 +38,14 @@
 ## Sprint 3 — Backend: Pipeline de Ingestão
 | ID | Task | Status | Commit | Notas |
 |----|------|--------|--------|-------|
-| T3.1 | BullMQ plugin | ⏳ | — | — |
-| T3.2 | DocumentRepository interface | ⏳ | — | — |
-| T3.3 | DrizzleDocumentRepository | ⏳ | — | — |
-| T3.4 | Job Worker: document-ingestion | ⏳ | — | — |
-| T3.5 | DocumentService | ⏳ | — | — |
-| T3.6 | tRPC documentsRouter + rota REST upload | ⏳ | — | — |
-| T3.7 | Schema reindex endpoint | ⏳ | — | — |
-| T3.8 | Atualizar services-factory.ts | ⏳ | — | — |
+| T3.1 | BullMQ plugin | ✅ | — | bullmq + @fastify/multipart; singleton queue |
+| T3.2 | DocumentRepository interface | ✅ | — | packages/core + Zod schemas em packages/types |
+| T3.3 | DrizzleDocumentRepository | ✅ | — | inArray para listDocuments eficiente |
+| T3.4 | Job Worker: document-ingestion | ✅ | — | batch 50 embeddings; erro salvo no status |
+| T3.5 | DocumentService | ✅ | — | DocumentIngestionQueue interface (DI agnóstico) |
+| T3.6 | tRPC documentsRouter + rota REST upload | ✅ | — | tRPC list/history/remove + REST POST /upload |
+| T3.7 | Schema reindex endpoint | ✅ | — | POST /api/rag/schema/reindex com information_schema |
+| T3.8 | Atualizar services-factory.ts | ✅ | — | singleton factory; documentService injetado |
 
 ## Sprint 4 — Backend: Chat RAG + SSE
 | ID | Task | Status | Commit | Notas |
