@@ -5,6 +5,7 @@ import {
 	pgEnum,
 	pgTable,
 	text,
+	timestamp,
 } from "drizzle-orm/pg-core";
 import { baseColumnsWithUserId } from "./base-columns";
 
@@ -19,7 +20,7 @@ export const documents = pgTable("documents", {
 	...baseColumnsWithUserId(),
 	name: text("name").notNull(),
 	mimeType: text("mime_type").notNull(),
-	deletedAt: text("deleted_at"),
+	deletedAt: timestamp("deleted_at"),
 });
 
 export const documentVersions = pgTable("document_versions", {

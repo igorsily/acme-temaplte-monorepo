@@ -1,6 +1,6 @@
 import { db } from "@omnia/db";
 import { documents, documentVersions } from "@omnia/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { searchDocumentChunks } from "./vector-store";
 
 const SIMILARITY_THRESHOLD = 0.3;
@@ -14,41 +14,35 @@ export type EnrichedChunk = {
 	documentName: string;
 };
 
+type VersionNameRow = { versionId: number; documentName: string };
+
 export const retrieveChunks = async (
 	queryEmbedding: number[],
-	topK = 5
+	topK = 5,
 ): Promise<EnrichedChunk[]> => {
 	const chunks = await searchDocumentChunks(queryEmbedding, topK);
-
 	const filtered = chunks.filter((c) => c.similarity > SIMILARITY_THRESHOLD);
 
-	const enriched = await Promise.all(
-		filtered.map(async (chunk) => {
-			const version = await db
-				.select({ documentId: documentVersions.documentId })
-				.from(documentVersions)
-				.where(eq(documentVersions.id, chunk.documentVersionId))
-				.limit(1);
+	if (filtered.length === 0) return [];
 
-			const versionRow = version[0];
-			if (!versionRow) {
-				return null;
-			}
+	const versionIds = filtered.map((c) => c.documentVersionId);
 
-			const doc = await db
-				.select({ name: documents.name })
-				.from(documents)
-				.where(eq(documents.id, versionRow.documentId))
-				.limit(1);
-
-			const docRow = doc[0];
-			if (!docRow) {
-				return null;
-			}
-
-			return { ...chunk, documentName: docRow.name };
+	const rows: VersionNameRow[] = await db
+		.select({
+			versionId: documentVersions.id,
+			documentName: documents.name,
 		})
+		.from(documentVersions)
+		.innerJoin(documents, eq(documentVersions.documentId, documents.id))
+		.where(inArray(documentVersions.id, versionIds));
+
+	const nameByVersionId = new Map<number, string>(
+		rows.map((r) => [r.versionId, r.documentName]),
 	);
 
-	return enriched.filter((c): c is EnrichedChunk => c !== null);
+	return filtered.flatMap((chunk) => {
+		const documentName = nameByVersionId.get(chunk.documentVersionId);
+		if (!documentName) return [];
+		return [{ ...chunk, documentName }];
+	});
 };

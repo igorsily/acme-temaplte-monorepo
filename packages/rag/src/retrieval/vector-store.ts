@@ -20,11 +20,18 @@ export type RetrievedSchema = {
 	similarity: number;
 };
 
+const toVectorLiteral = (embedding: number[]): string => {
+	if (!embedding.every((n) => Number.isFinite(n))) {
+		throw new Error("Invalid embedding: all values must be finite numbers");
+	}
+	return `[${embedding.join(",")}]`;
+};
+
 export const searchDocumentChunks = async (
 	queryEmbedding: number[],
 	topK = 5
 ): Promise<RetrievedChunk[]> => {
-	const vectorLiteral = `[${queryEmbedding.join(",")}]`;
+	const vectorLiteral = toVectorLiteral(queryEmbedding);
 
 	const rows = await db
 		.select({
@@ -51,7 +58,7 @@ export const searchSchemaEmbeddings = async (
 	queryEmbedding: number[],
 	topK = 3
 ): Promise<RetrievedSchema[]> => {
-	const vectorLiteral = `[${queryEmbedding.join(",")}]`;
+	const vectorLiteral = toVectorLiteral(queryEmbedding);
 
 	const rows = await db
 		.select({
