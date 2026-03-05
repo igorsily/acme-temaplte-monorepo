@@ -4,20 +4,20 @@ import { schemaEmbeddings } from "@omnia/db/schema";
 import { embedTexts } from "@omnia/rag";
 import { fromNodeHeaders } from "better-auth/node";
 import { sql } from "drizzle-orm";
-import type { FastifyPluginAsync } from "fastify";
+import type { FastifyPluginCallback } from "fastify";
 
-type ColumnInfo = {
+interface ColumnInfo {
 	column_name: string;
 	data_type: string;
 	is_nullable: string;
-};
+}
 
-type TableInfo = {
-	table_name: string;
+interface TableInfo {
 	columns: ColumnInfo[];
-};
+	table_name: string;
+}
 
-const ragRoutes: FastifyPluginAsync = async (fastify) => {
+const ragRoutes: FastifyPluginCallback = (fastify, _opts, done) => {
 	// POST /api/rag/schema/reindex
 	fastify.post("/schema/reindex", async (request, reply) => {
 		const session = await auth.api.getSession({
@@ -115,6 +115,8 @@ const ragRoutes: FastifyPluginAsync = async (fastify) => {
 
 		return reply.send({ reindexed: tables.length });
 	});
+
+	done();
 };
 
 export default ragRoutes;

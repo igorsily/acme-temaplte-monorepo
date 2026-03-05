@@ -1,5 +1,5 @@
-import { createContext } from "@acme/api/context";
-import { type AppRouter, appRouter } from "@acme/api/routers/index";
+import { createContext } from "@omnia/api/context";
+import { type AppRouter, appRouter } from "@omnia/api/routers/index";
 import {
 	type FastifyTRPCPluginOptions,
 	fastifyTRPCPlugin,
@@ -8,7 +8,7 @@ import fp from "fastify-plugin";
 import { servicesFactory } from "@/services-factory";
 
 export default fp(async (fastify) => {
-	const services = servicesFactory();
+	const services = servicesFactory(fastify.documentIngestionQueue);
 
 	await fastify.register(fastifyTRPCPlugin, {
 		prefix: "/api/trpc",

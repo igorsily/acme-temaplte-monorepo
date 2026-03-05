@@ -1,3 +1,5 @@
+import { db } from "@omnia/db";
+import { DrizzleDocumentRepository } from "@omnia/db/repositories/document.repository";
 import { env } from "@omnia/env/server";
 import { buildApp } from "./app";
 import { createDocumentIngestionWorker } from "./jobs/document-ingestion.worker";
@@ -5,7 +7,9 @@ import { createDocumentIngestionWorker } from "./jobs/document-ingestion.worker"
 const startServer = async () => {
 	try {
 		const app = await buildApp();
-		const worker = createDocumentIngestionWorker();
+
+		const repository = new DrizzleDocumentRepository(db);
+		const worker = createDocumentIngestionWorker(repository);
 
 		app.addHook("onClose", async () => {
 			await worker.close();

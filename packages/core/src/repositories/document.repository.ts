@@ -6,18 +6,17 @@ import type {
 	DocumentWithVersion,
 } from "@omnia/types/schemas/document.schema";
 
-export type CreateDocumentInput = {
-	name: string;
+export interface CreateDocumentInput {
 	mimeType: string;
-};
+	name: string;
+}
 
-export type CreateDocumentVersionInput = {
+export interface CreateDocumentVersionInput {
 	documentId: number;
-	version: number;
 	filePath: string;
 	fileSize: number;
 	userId: number;
-};
+}
 
 export interface DocumentRepository {
 	create(input: CreateDocumentInput, userId: number): Promise<Document>;
@@ -30,6 +29,7 @@ export interface DocumentRepository {
 		userId: number
 	): Promise<{ data: DocumentWithVersion[]; total: number }>;
 	softDeleteDocument(documentId: number): Promise<void>;
+	updateVersionFilePath(versionId: number, filePath: string): Promise<void>;
 	updateVersionStatus(
 		versionId: number,
 		status: DocumentStatus,

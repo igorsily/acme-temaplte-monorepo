@@ -37,29 +37,46 @@ export class DrizzleDocumentRepository implements DocumentRepository {
 	async createVersion(
 		input: CreateDocumentVersionInput
 	): Promise<DocumentVersion> {
-		const [maxRow] = await this.db
-			.select({ max: max(documentVersions.version) })
-			.from(documentVersions)
-			.where(eq(documentVersions.documentId, input.documentId));
+		const row = await this.db.transaction(async (tx) => {
+			// FOR UPDATE locks the aggregate row preventing concurrent version bumps
+			const [maxRow] = await tx
+				.select({ max: max(documentVersions.version) })
+				.from(documentVersions)
+				.where(eq(documentVersions.documentId, input.documentId))
+				.for("update");
 
-		const nextVersion = (maxRow?.max ?? 0) + 1;
+			const nextVersion = (maxRow?.max ?? 0) + 1;
 
-		const [row] = await this.db
-			.insert(documentVersions)
-			.values({
-				documentId: input.documentId,
-				version: nextVersion,
-				filePath: input.filePath,
-				fileSize: input.fileSize,
-				userId: input.userId,
-				status: "pending",
-				isActive: false,
-			})
-			.returning();
+			const [inserted] = await tx
+				.insert(documentVersions)
+				.values({
+					documentId: input.documentId,
+					version: nextVersion,
+					filePath: input.filePath,
+					fileSize: input.fileSize,
+					userId: input.userId,
+					status: "pending",
+					isActive: false,
+				})
+				.returning();
+
+			return inserted;
+		});
+
 		if (!row) {
 			throw new Error("Failed to create document version");
 		}
 		return documentVersionSchema.parse(row);
+	}
+
+	async updateVersionFilePath(
+		versionId: number,
+		filePath: string
+	): Promise<void> {
+		await this.db
+			.update(documentVersions)
+			.set({ filePath })
+			.where(eq(documentVersions.id, versionId));
 	}
 
 	async getActiveVersion(documentId: number): Promise<DocumentVersion | null> {

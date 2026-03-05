@@ -6,17 +6,14 @@ import type {
 	DocumentWithVersion,
 	UploadDocumentOutput,
 } from "@omnia/types/schemas/document.schema";
-import type {
-	CreateDocumentVersionInput,
-	DocumentRepository,
-} from "../repositories/document.repository";
+import type { DocumentRepository } from "../repositories/document.repository";
 
-export type UploadFileInput = {
+export interface UploadFileInput {
+	buffer: Buffer;
 	filename: string;
 	mimeType: string;
-	buffer: Buffer;
 	uploadDir: string;
-};
+}
 
 export interface DocumentIngestionQueue {
 	add(
@@ -55,7 +52,6 @@ export class DocumentService {
 
 		const version = await this.documentRepository.createVersion({
 			documentId: doc.id,
-			version: 1,
 			filePath,
 			fileSize: file.buffer.length,
 			userId,
@@ -81,20 +77,18 @@ export class DocumentService {
 		file: UploadFileInput,
 		userId: number
 	): Promise<UploadDocumentOutput> {
-		const input: CreateDocumentVersionInput = {
+		// Create version record with empty filePath to get the auto-incremented version number
+		const version = await this.documentRepository.createVersion({
 			documentId,
-			version: 0, // repository will compute MAX + 1
 			filePath: "",
 			fileSize: file.buffer.length,
 			userId,
-		};
+		});
 
-		// Create version record first to get the auto-incremented version number
-		const version = await this.documentRepository.createVersion(input);
 		const filePath = await this.saveFile(file, documentId, version.version);
 
-		// Update the file path now that we have the version id
-		await this.documentRepository.updateVersionStatus(version.id, "pending");
+		// Persist the actual file path now that we have the version number
+		await this.documentRepository.updateVersionFilePath(version.id, filePath);
 
 		await this.ingestionQueue.add("ingest", {
 			documentVersionId: version.id,
@@ -107,22 +101,22 @@ export class DocumentService {
 			documentId,
 			versionId: version.id,
 			version: version.version,
-			status: "pending",
+			status: version.status,
 		};
 	}
 
-	async list(
+	list(
 		params: ListParams,
 		userId: number
 	): Promise<{ data: DocumentWithVersion[]; total: number }> {
 		return this.documentRepository.listDocuments(params, userId);
 	}
 
-	async getVersionHistory(documentId: number): Promise<DocumentVersion[]> {
+	getVersionHistory(documentId: number): Promise<DocumentVersion[]> {
 		return this.documentRepository.getVersionHistory(documentId);
 	}
 
-	async remove(documentId: number): Promise<void> {
+	remove(documentId: number): Promise<void> {
 		return this.documentRepository.softDeleteDocument(documentId);
 	}
 

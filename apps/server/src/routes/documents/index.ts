@@ -1,7 +1,7 @@
 import { auth } from "@omnia/auth";
 import { env } from "@omnia/env/server";
 import { fromNodeHeaders } from "better-auth/node";
-import type { FastifyPluginAsync } from "fastify";
+import type { FastifyPluginCallback } from "fastify";
 import { servicesFactory } from "@/services-factory";
 
 const ALLOWED_MIME_TYPES = new Set([
@@ -11,9 +11,8 @@ const ALLOWED_MIME_TYPES = new Set([
 	"text/plain",
 ]);
 
-const services = servicesFactory();
-
-const documentsRoutes: FastifyPluginAsync = async (fastify) => {
+const documentsRoutes: FastifyPluginCallback = (fastify, _opts, done) => {
+	const services = servicesFactory(fastify.documentIngestionQueue);
 	// POST /api/documents/upload
 	fastify.post("/upload", async (request, reply) => {
 		const session = await auth.api.getSession({
@@ -115,6 +114,8 @@ const documentsRoutes: FastifyPluginAsync = async (fastify) => {
 			return reply.status(201).send(result);
 		}
 	);
+
+	done();
 };
 
 export default documentsRoutes;

@@ -1,28 +1,29 @@
 import { readFile } from "node:fs/promises";
+import type { DocumentRepository } from "@omnia/core/repositories/document.repository";
 import { db } from "@omnia/db";
-import { DrizzleDocumentRepository } from "@omnia/db/repositories/document.repository";
 import {
 	documentChunks,
 	documentEmbeddings,
 	documentVersions,
 } from "@omnia/db/schema";
-import { env } from "@omnia/env/server";
 import { chunkText, embedTexts, parseDocument } from "@omnia/rag";
 import { Worker } from "bullmq";
 import { eq } from "drizzle-orm";
+import { redisConnection } from "@/lib/redis";
 
-export type IngestionJobData = {
+export interface IngestionJobData {
+	documentId: number;
 	documentVersionId: number;
 	filePath: string;
 	mimeType: string;
-	documentId: number;
-};
+}
 
 const BATCH_SIZE = 50;
 
-const repository = new DrizzleDocumentRepository(db);
-
-const processJob = async (data: IngestionJobData): Promise<void> => {
+const processJob = async (
+	data: IngestionJobData,
+	repository: DocumentRepository
+): Promise<void> => {
 	const { documentVersionId, filePath, mimeType, documentId } = data;
 
 	await repository.updateVersionStatus(documentVersionId, "processing");
@@ -80,17 +81,14 @@ const processJob = async (data: IngestionJobData): Promise<void> => {
 	await repository.updateVersionStatus(documentVersionId, "active");
 };
 
-export const createDocumentIngestionWorker = () => {
-	const connection = {
-		host: env.REDIS_HOST,
-		port: env.REDIS_PORT,
-	};
-
+export const createDocumentIngestionWorker = (
+	repository: DocumentRepository
+) => {
 	const worker = new Worker<IngestionJobData>(
 		"document-ingestion",
 		async (job) => {
 			try {
-				await processJob(job.data);
+				await processJob(job.data, repository);
 			} catch (err) {
 				const message = err instanceof Error ? err.message : String(err);
 				await repository.updateVersionStatus(
@@ -102,7 +100,7 @@ export const createDocumentIngestionWorker = () => {
 			}
 		},
 		{
-			connection,
+			connection: redisConnection,
 			concurrency: 2,
 		}
 	);

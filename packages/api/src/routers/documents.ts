@@ -21,7 +21,7 @@ export const documentsRouter = router({
 
 	getVersionHistory: protectedProcedure
 		.input(z.object({ documentId: z.number().int().positive() }))
-		.query(async ({ input, ctx }) => {
+		.query(({ input, ctx }) => {
 			return ctx.services.documentService.getVersionHistory(input.documentId);
 		}),
 
