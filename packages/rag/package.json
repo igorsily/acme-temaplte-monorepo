@@ -1,0 +1,26 @@
+{
+  "name": "@omnia/rag",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "check-types": "tsc -b"
+  },
+  "dependencies": {
+    "@omnia/db": "workspace:*",
+    "@omnia/env": "workspace:*",
+    "mammoth": "^1.8.0",
+    "openai": "^4.0.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@omnia/config": "workspace:*",
+    "@types/mammoth": "^1.5.1",
+    "@types/node": "catalog:",
+    "@types/pdf-parse": "^1.1.4",
+    "typescript": "catalog:"
+  }
+}
