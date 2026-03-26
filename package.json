@@ -1,5 +1,5 @@
 {
-  "name": "acme",
+  "name": "omnia",
   "private": true,
   "workspaces": {
     "packages": [
@@ -21,30 +21,30 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "check-types": "turbo check-types",
+    "check-types": "ultracite fix && turbo check-types",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F server dev",
-    "db:push": "turbo -F @acme/db db:push",
-    "db:studio": "turbo -F @acme/db db:studio",
-    "db:generate": "turbo -F @acme/db db:generate",
-    "db:migrate": "turbo -F @acme/db db:migrate",
-    "db:start": "turbo -F @acme/db db:start",
-    "db:watch": "turbo -F @acme/db db:watch",
-    "db:stop": "turbo -F @acme/db db:stop",
-    "db:down": "turbo -F @acme/db db:down",
+    "db:push": "turbo -F @omnia/db db:push",
+    "db:studio": "turbo -F @omnia/db db:studio",
+    "db:generate": "turbo -F @omnia/db db:generate",
+    "db:migrate": "turbo -F @omnia/db db:migrate",
+    "db:start": "turbo -F @omnia/db db:start",
+    "db:watch": "turbo -F @omnia/db db:watch",
+    "db:stop": "turbo -F @omnia/db db:stop",
+    "db:down": "turbo -F @omnia/db db:down",
     "db:seed": "turbo -F server db:seed",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },
   "dependencies": {
-    "@acme/env": "workspace:*",
+    "@omnia/env": "workspace:*",
     "dotenv": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.0",
-    "@acme/config": "workspace:*",
+    "@omnia/config": "workspace:*",
     "@types/node": "catalog:",
     "lefthook": "latest",
     "turbo": "^2.6.3",

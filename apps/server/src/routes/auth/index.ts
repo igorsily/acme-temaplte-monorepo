@@ -1,4 +1,4 @@
-import { auth } from "@acme/auth";
+import { auth } from "@omnia/auth";
 import type { FastifyPluginCallback } from "fastify";
 
 const authRoutes: FastifyPluginCallback = (fastify, _options, done) => {

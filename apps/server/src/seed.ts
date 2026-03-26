@@ -1,4 +1,4 @@
-import { auth } from "@acme/auth";
+import { auth } from "@omnia/auth";
 
 interface SeedUser {
 	displayUsername: string;
@@ -11,11 +11,11 @@ interface SeedUser {
 
 const SEED_USERS: SeedUser[] = [
 	{
-		name: "Acme Inc",
-		email: "acme@acme.com",
-		password: "acme@acme",
-		username: "acme",
-		displayUsername: "Acme Inc",
+		name: "Omnia Inc",
+		email: "omnia@omnia.com",
+		password: "omnia@omnia",
+		username: "omnia",
+		displayUsername: "Omnia Inc",
 	},
 ];
 

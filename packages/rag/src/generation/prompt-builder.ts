@@ -1,18 +1,24 @@
-type Message = { role: "user" | "assistant"; content: string };
+interface Message {
+	content: string;
+	role: "user" | "assistant";
+}
 
-type Source = { documentName: string; excerpt: string };
+interface Source {
+	documentName: string;
+	excerpt: string;
+}
 
-type BuildPromptInput = {
+interface BuildPromptInput {
+	conversationHistory: Message[];
 	question: string;
 	retrievedChunks: { content: string; documentName: string }[];
-	conversationHistory: Message[];
 	schemaContext?: string;
-};
+}
 
-export type BuiltPrompt = {
+export interface BuiltPrompt {
 	messages: { role: "system" | "user" | "assistant"; content: string }[];
 	sources: Source[];
-};
+}
 
 const SYSTEM_PROMPT = `Você é um assistente interno da empresa. Responda apenas com base
 nas informações fornecidas no contexto. Se a informação não estiver no contexto,

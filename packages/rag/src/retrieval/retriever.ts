@@ -5,25 +5,30 @@ import { searchDocumentChunks } from "./vector-store";
 
 const SIMILARITY_THRESHOLD = 0.3;
 
-export type EnrichedChunk = {
+export interface EnrichedChunk {
 	chunkId: number;
 	content: string;
+	documentName: string;
+	documentVersionId: number;
 	metadata: Record<string, unknown>;
 	similarity: number;
-	documentVersionId: number;
-	documentName: string;
-};
+}
 
-type VersionNameRow = { versionId: number; documentName: string };
+interface VersionNameRow {
+	documentName: string;
+	versionId: number;
+}
 
 export const retrieveChunks = async (
 	queryEmbedding: number[],
-	topK = 5,
+	topK = 5
 ): Promise<EnrichedChunk[]> => {
 	const chunks = await searchDocumentChunks(queryEmbedding, topK);
 	const filtered = chunks.filter((c) => c.similarity > SIMILARITY_THRESHOLD);
 
-	if (filtered.length === 0) return [];
+	if (filtered.length === 0) {
+		return [];
+	}
 
 	const versionIds = filtered.map((c) => c.documentVersionId);
 
@@ -37,12 +42,14 @@ export const retrieveChunks = async (
 		.where(inArray(documentVersions.id, versionIds));
 
 	const nameByVersionId = new Map<number, string>(
-		rows.map((r) => [r.versionId, r.documentName]),
+		rows.map((r) => [r.versionId, r.documentName])
 	);
 
 	return filtered.flatMap((chunk) => {
 		const documentName = nameByVersionId.get(chunk.documentVersionId);
-		if (!documentName) return [];
+		if (!documentName) {
+			return [];
+		}
 		return [{ ...chunk, documentName }];
 	});
 };

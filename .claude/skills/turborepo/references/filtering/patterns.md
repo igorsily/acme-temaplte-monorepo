@@ -8,7 +8,7 @@ Run task in one package:
 
 ```bash
 turbo run build --filter=web
-turbo run test --filter=@acme/api
+turbo run test --filter=@omnia/api
 ```
 
 ## Package with Dependencies
@@ -86,7 +86,7 @@ turbo run build --filter=./apps/web --filter=./apps/api
 Run in all packages under a scope:
 
 ```bash
-turbo run build --filter=@acme/*
+turbo run build --filter=@omnia/*
 ```
 
 ## Exclusions

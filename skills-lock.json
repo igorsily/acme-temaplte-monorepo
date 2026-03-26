@@ -11,6 +11,21 @@
       "sourceType": "github",
       "computedHash": "b66ef38b684ef2f10c2419bf379d0f8de6a016ae41540dac5379b344ebb15ff9"
     },
+    "langchain-architecture": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "0cdd844e5af5d2c47e3faf31ba9b9f1b86a611edecc72e2021688c0b6cce6938"
+    },
+    "rag-architect": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "f2c50d46fbf53771173aaee1abc15cf780e597d5ecff3f89d635a2924864186f"
+    },
+    "rag-engineer": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "b881e8468e9f5597623194c18479688f126f5a5e08377664546880db512bd305"
+    },
     "turborepo": {
       "source": "vercel/turborepo",
       "sourceType": "github",

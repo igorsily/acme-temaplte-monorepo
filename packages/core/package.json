@@ -1,5 +1,5 @@
 {
-  "name": "@acme/core",
+  "name": "@omnia/core",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -15,7 +15,7 @@
     "check-types": "tsc -b"
   },
   "dependencies": {
-    "@acme/types": "workspace:*",
+    "@omnia/types": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

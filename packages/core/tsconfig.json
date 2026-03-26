@@ -1,5 +1,5 @@
 {
-  "extends": "@acme/config/tsconfig.base.json",
+  "extends": "@omnia/config/tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "dist",

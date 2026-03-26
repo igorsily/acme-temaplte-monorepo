@@ -1,4 +1,4 @@
-import { env } from "@acme/env/server";
+import { env } from "@omnia/env/server";
 import Fastify from "fastify";
 import plugins from "./plugins";
 import routes from "./routes";

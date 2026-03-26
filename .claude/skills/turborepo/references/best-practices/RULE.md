@@ -179,7 +179,7 @@ export * from './modal';
 ```json
 // Good
 { "name": "@repo/ui" }
-{ "name": "@acme/utils" }
+{ "name": "@omnia/utils" }
 
 // Avoid (conflicts with npm registry)
 { "name": "ui" }

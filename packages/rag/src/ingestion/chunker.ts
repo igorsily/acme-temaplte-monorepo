@@ -1,7 +1,10 @@
 const CHUNK_SIZE = 512; // tokens aproximados (chars / 4)
 const CHUNK_OVERLAP = 50;
 
-export type Chunk = { content: string; chunkIndex: number };
+export interface Chunk {
+	chunkIndex: number;
+	content: string;
+}
 
 export const chunkText = (text: string): Chunk[] => {
 	const chunkSizeChars = CHUNK_SIZE * 4;

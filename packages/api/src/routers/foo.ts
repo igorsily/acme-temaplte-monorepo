@@ -1,8 +1,8 @@
-import { listParamsSchema } from "@acme/types";
+import { listParamsSchema } from "@omnia/types";
 import {
 	createFooSchema,
 	listFoosSchema,
-} from "@acme/types/schemas/foo.schema";
+} from "@omnia/types/schemas/foo.schema";
 import { protectedProcedure, router } from "..";
 
 export const fooRouter = router({

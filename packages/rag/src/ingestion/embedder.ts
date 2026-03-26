@@ -9,7 +9,7 @@ export const embedTexts = async (texts: string[]): Promise<number[][]> => {
 		model: MODEL,
 		input: texts,
 	});
-	return response.data.map((d: { embedding: number[] }) => d.embedding);
+	return response.data.map((d) => d.embedding);
 };
 
 export const embedText = async (text: string): Promise<number[]> => {

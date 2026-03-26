@@ -1,6 +1,6 @@
-import { db } from "@acme/db";
-import * as schema from "@acme/db/schema/auth";
-import { env } from "@acme/env/server";
+import { db } from "@omnia/db";
+import * as schema from "@omnia/db/schema/auth";
+import { env } from "@omnia/env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { username } from "better-auth/plugins";

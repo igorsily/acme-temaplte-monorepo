@@ -2,7 +2,7 @@ import { parseDocx } from "./docx.parser";
 import { parsePdf } from "./pdf.parser";
 import { parseTxt } from "./txt.parser";
 
-export const parseDocument = async (
+export const parseDocument = (
 	buffer: Buffer,
 	mimeType: string
 ): Promise<string> => {
@@ -12,7 +12,7 @@ export const parseDocument = async (
 		case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
 			return parseDocx(buffer);
 		case "text/plain":
-			return parseTxt(buffer);
+			return Promise.resolve(parseTxt(buffer));
 		default:
 			throw new Error(`Unsupported mime type: ${mimeType}`);
 	}

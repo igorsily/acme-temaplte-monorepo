@@ -14,10 +14,10 @@
     "@base-ui/react": "^1.0.0",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@hookform/resolvers": "^5.1.1",
-    "@acme/api": "workspace:*",
-    "@acme/auth": "workspace:*",
-    "@acme/env": "workspace:*",
-    "@acme/types": "workspace:*",
+    "@omnia/api": "workspace:*",
+    "@omnia/auth": "workspace:*",
+    "@omnia/env": "workspace:*",
+    "@omnia/types": "workspace:*",
     "@tailwindcss/vite": "^4.0.15",
     "@tanstack/react-form": "^1.28.0",
     "@tanstack/react-query": "^5.90.12",
@@ -43,7 +43,7 @@
     "superjson": "catalog:"
   },
   "devDependencies": {
-    "@acme/config": "workspace:*",
+    "@omnia/config": "workspace:*",
     "@tanstack/react-query-devtools": "^5.91.1",
     "@tanstack/react-router-devtools": "^1.141.1",
     "@tanstack/router-plugin": "^1.141.1",

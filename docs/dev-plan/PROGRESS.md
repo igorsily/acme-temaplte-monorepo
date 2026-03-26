@@ -38,14 +38,14 @@
 ## Sprint 3 — Backend: Pipeline de Ingestão
 | ID | Task | Status | Commit | Notas |
 |----|------|--------|--------|-------|
-| T3.1 | BullMQ plugin | ✅ | — | bullmq + @fastify/multipart; singleton queue |
-| T3.2 | DocumentRepository interface | ✅ | — | packages/core + Zod schemas em packages/types |
-| T3.3 | DrizzleDocumentRepository | ✅ | — | inArray para listDocuments eficiente |
-| T3.4 | Job Worker: document-ingestion | ✅ | — | batch 50 embeddings; erro salvo no status |
-| T3.5 | DocumentService | ✅ | — | DocumentIngestionQueue interface (DI agnóstico) |
-| T3.6 | tRPC documentsRouter + rota REST upload | ✅ | — | tRPC list/history/remove + REST POST /upload |
-| T3.7 | Schema reindex endpoint | ✅ | — | POST /api/rag/schema/reindex com information_schema |
-| T3.8 | Atualizar services-factory.ts | ✅ | — | singleton factory; documentService injetado |
+| T3.1 | BullMQ plugin | ✅ | 6167d00 | bullmq + @fastify/multipart; singleton queue |
+| T3.2 | DocumentRepository interface | ✅ | 6167d00 | packages/core + Zod schemas em packages/types |
+| T3.3 | DrizzleDocumentRepository | ✅ | 6167d00 | inArray para listDocuments eficiente |
+| T3.4 | Job Worker: document-ingestion | ✅ | 6167d00 | batch 50 embeddings; erro salvo no status |
+| T3.5 | DocumentService | ✅ | 6167d00 | DocumentIngestionQueue interface (DI agnóstico) |
+| T3.6 | tRPC documentsRouter + rota REST upload | ✅ | 6167d00 | tRPC list/history/remove + REST POST /upload |
+| T3.7 | Schema reindex endpoint | ✅ | 6167d00 | POST /api/rag/schema/reindex com information_schema |
+| T3.8 | Atualizar services-factory.ts | ✅ | 6167d00 | singleton factory; documentService injetado |
 
 ## Sprint 4 — Backend: Chat RAG + SSE
 | ID | Task | Status | Commit | Notas |

@@ -767,7 +767,7 @@ A `dev` task with `dependsOn: ["^dev"]` and `persistent: false` in root turbo.js
 
 **Why this works:**
 
-- **Packages** (e.g., `@acme/db`, `@acme/validators`) have `"dev": "tsc"` — one-shot type generation that completes quickly
+- **Packages** (e.g., `@omnia/db`, `@omnia/validators`) have `"dev": "tsc"` — one-shot type generation that completes quickly
 - **Apps** override with `persistent: true` for actual dev servers (Next.js, etc.)
 - **`turbo watch`** re-runs the one-shot package `dev` scripts when source files change, keeping types in sync
 

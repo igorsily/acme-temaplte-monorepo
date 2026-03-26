@@ -141,7 +141,7 @@ export function createFormFactory<TShape extends ZodRawShape>(
 			// -----------------------------------------------------------------------
 			function Submit({ children, className }: SubmitProps) {
 				return (
-					<form.Subscribe>
+					<form.Subscribe selector={(state) => state}>
 						{(state) => {
 							const content =
 								typeof children === "function"

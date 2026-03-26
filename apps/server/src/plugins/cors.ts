@@ -1,5 +1,5 @@
-import { env } from "@acme/env/server";
 import fastifyCors from "@fastify/cors";
+import { env } from "@omnia/env/server";
 import fp from "fastify-plugin";
 
 const baseCorsConfig = {

@@ -1,5 +1,5 @@
-import { auth } from "@acme/auth";
-import type { Services } from "@acme/core";
+import { auth } from "@omnia/auth";
+import type { Services } from "@omnia/core";
 import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import { fromNodeHeaders } from "better-auth/node";
 

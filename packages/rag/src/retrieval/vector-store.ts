@@ -6,19 +6,19 @@ import {
 } from "@omnia/db/schema";
 import { sql } from "drizzle-orm";
 
-export type RetrievedChunk = {
+export interface RetrievedChunk {
 	chunkId: number;
 	content: string;
+	documentVersionId: number;
 	metadata: Record<string, unknown>;
 	similarity: number;
-	documentVersionId: number;
-};
+}
 
-export type RetrievedSchema = {
-	tableName: string;
+export interface RetrievedSchema {
 	columnInfo: unknown;
 	similarity: number;
-};
+	tableName: string;
+}
 
 const toVectorLiteral = (embedding: number[]): string => {
 	if (!embedding.every((n) => Number.isFinite(n))) {

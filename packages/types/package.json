@@ -1,5 +1,5 @@
 {
-  "name": "@acme/types",
+  "name": "@omnia/types",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -11,13 +11,13 @@
     }
   },
   "scripts": {
-    "check": "tsc --noEmit"
+    "check-types": "tsc -b"
   },
   "dependencies": {
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/config": "workspace:*",
+    "@omnia/config": "workspace:*",
     "typescript": "catalog:"
   }
 }

@@ -1,5 +1,5 @@
-import type { AppRouter } from "@acme/api/routers/index";
-import { env } from "@acme/env/web";
+import type { AppRouter } from "@omnia/api/routers/index";
+import { env } from "@omnia/env/web";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";

@@ -8,8 +8,8 @@ const swaggerPlugin: FastifyPluginAsync = async (fastify) => {
 		openapi: {
 			openapi: "3.0.0",
 			info: {
-				title: "Acme API",
-				description: "Documentação da API do sistema de acme",
+				title: "Omnia API",
+				description: "Documentação da API do sistema de Omnia",
 				version: "1.0.0",
 			},
 			servers: [
@@ -35,7 +35,7 @@ const swaggerPlugin: FastifyPluginAsync = async (fastify) => {
 		configuration: {
 			theme: "fastify",
 			metaData: {
-				title: "Acme API Docs",
+				title: "Omnia API Docs",
 			},
 		},
 	});

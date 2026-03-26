@@ -2,8 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/helpers/initials";
 
 interface UserAvatarCellProps {
-	name: string;
 	avatarUrl?: string | null;
+	name: string;
 }
 
 export function UserAvatarCell({ name, avatarUrl }: UserAvatarCellProps) {

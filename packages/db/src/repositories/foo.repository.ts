@@ -1,10 +1,10 @@
-import type { FooRepository } from "@acme/core";
-import type { ListParams } from "@acme/types/schemas/common.schema";
+import type { FooRepository } from "@omnia/core";
+import type { ListParams } from "@omnia/types/schemas/common.schema";
 import {
 	type CreateFooInput,
 	type Foo,
 	fooSchema,
-} from "@acme/types/schemas/foo.schema";
+} from "@omnia/types/schemas/foo.schema";
 import { asc, count, desc, ilike } from "drizzle-orm";
 import type { db } from "..";
 import { foo } from "../schema/foo";

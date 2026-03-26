@@ -88,7 +88,7 @@ Multiple filters combine as a union (packages matching ANY filter run).
 
 ```bash
 --filter=web          # exact match
---filter=@acme/*      # scope glob
+--filter=@omnia/*      # scope glob
 --filter=*-app        # name glob
 ```
 
